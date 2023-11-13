@@ -2,28 +2,30 @@
 import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
 import useSWR from 'swr';
-import Select, { ActionMeta, SingleValue } from 'react-select';
+import Select, { ActionMeta, InputActionMeta, SingleValue } from 'react-select';
 
 export default function Home() {
-  
+  const locationQueryLimit = 5;
+  const key = process.env.NEXT_PUBLIC_OPENWEATHERMAP_KEY;
+
   const [location, setLocation] = useState({
     searchTerm: '',
     options: []
   });
 
-  const key = process.env.NEXT_PUBLIC_OPENWEATHERMAP_KEY;
-  const limit = 3;
+  const onLocationChange = (newValue: string, actionMeta: InputActionMeta) => {
 
-  const geoFetcher = (url: string) => axios.get(url).then(res => res.data)
-
-
-  const onLocationChange = (newValue: SingleValue<string>, actionMeta: ActionMeta<string>) => {
-    const { data: locationData, error: locationError, isLoading: locationIsLoading } = useSWR(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${"london"}&limit=${limit}&appid=${key}`,
-      geoFetcher
-    );
-    
-
+    setLocation({...location, searchTerm: newValue});
+    axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${newValue}&limit=${locationQueryLimit}&appid=${key}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(data => {
+      const options = data.data.map((location: any) => {
+        return {label: location.city, value: location}
+      })
+      setLocation({...location, options: options});
+    });
   }
 
   return (
@@ -31,7 +33,7 @@ export default function Home() {
       <div>
         <h1>Hello world</h1>
       </div>
-      <Select isSearchable={true} value={location.searchTerm} onChange={onLocationChange}></Select>
+      <Select isSearchable={true} options={location.options} inputValue={location.searchTerm} onInputChange={onLocationChange}></Select>
     </main>
   )
 }
