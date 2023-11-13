@@ -1,9 +1,7 @@
 'use client';
 import axios from 'axios';
-import { ChangeEvent, useState } from 'react';
-import useSWR from 'swr';
-import Select, { ActionMeta, InputActionMeta, SingleValue } from 'react-select';
-import useLocation from './hooks/useLocation';
+import { useState } from 'react';
+import Select, { InputActionMeta } from 'react-select';
 
 export default function Home() {
   
@@ -12,9 +10,31 @@ export default function Home() {
     options: []
   });
 
+    
+  const key = process.env.NEXT_PUBLIC_OPENWEATHERMAP_KEY;
+  const limit = 3;
+
   const onLocationChange = (newValue: string, actionMeta: InputActionMeta) => {
+    if (!newValue) {
+      setLocation({ ...location, options: [] });
+      return;
+    }
     setLocation({...location, searchTerm: newValue});
-    useLocation(newValue)
+    setTimeout(() => {
+      
+      axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${newValue}&limit=${limit}&appid=${key}`)
+      .then(response => {
+        console.log(response.data)
+        const options = response.data.map((location: any) => {
+          return {label: `${location.name}, ${location.state}`, value: location}
+        });
+        setLocation({...location, options: options});
+      }).catch((err) => {
+        console.log(err);
+      });
+  
+
+    }, 3000);
   }
 
   return (
