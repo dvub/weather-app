@@ -1,13 +1,13 @@
+import { GeocodeAPIResponse } from '@/types'
 import axios from 'axios'
 import React from 'react'
 import Select, { ActionMeta, InputActionMeta } from 'react-select'
 
 export default function LocationSelector(props: {
 	setCoordinates: React.Dispatch<
-		React.SetStateAction<{
-			latitude: number
-			longitude: number
-		}>
+		React.SetStateAction<
+			{ latitude: number; longitude: number } | undefined
+		>
 	>
 }) {
 	const [location, setLocation] = React.useState({
@@ -38,12 +38,14 @@ export default function LocationSelector(props: {
 		axios
 			.get(`${endpoint}?q=${query}&limit=${queryLimit}&appid=${key}`)
 			.then((response) => {
-				const options = response.data.map((location: any) => {
-					return {
-						label: `${location.name}, ${location.state}`,
-						value: location,
+				const options = response.data.map(
+					(location: GeocodeAPIResponse) => {
+						return {
+							label: `${location.name}, ${location.state}`,
+							value: location,
+						}
 					}
-				})
+				)
 				setLocation({ ...location, options: options })
 			})
 			.catch((err) => {
