@@ -30,6 +30,7 @@ export default function Home() {
 				`${endpoint}?lat=${latitude}&lon=${longitude}&appid=${key}`
 			)
 			.then((response) => {
+				console.log(response.data)
 				setWeather(response.data)
 			})
 			.catch((error) => {
@@ -42,6 +43,7 @@ export default function Home() {
 			<h1>Location</h1>
 			<LocationSelector setCoordinates={setCoordinates} />
 			<WeatherDisplay weather={weather} />
+			<p>TODO: metric toggle</p>
 		</main>
 	)
 }

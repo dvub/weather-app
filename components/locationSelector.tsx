@@ -36,7 +36,9 @@ export default function LocationSelector(props: {
 		if (!query) return
 		// use axios to make a get request to the endpoint
 		axios
-			.get(`${endpoint}?q=${query}&limit=${queryLimit}&appid=${key}`)
+			.get(
+				`${endpoint}?q=${query}&limit=${queryLimit}&units=${'imperial'}&appid=${key}`
+			)
 			.then((response) => {
 				const options = response.data.map(
 					(location: GeocodeAPIResponse) => {
