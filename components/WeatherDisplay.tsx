@@ -3,7 +3,7 @@ import React from 'react';
 import LocalTimeDisplay from './LocalTimeDisplay';
 import WindDisplay from './WindDisplay';
 import MiscDisplay from './MiscDisplay';
-import OverviewDisplay from './OverviewDisplaty';
+import OverviewDisplay from './OverviewDisplay';
 
 export default function WeatherDisplay(props: {
 	weather: WeatherAPIResponse | undefined;
