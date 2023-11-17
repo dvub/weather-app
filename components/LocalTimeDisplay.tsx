@@ -32,12 +32,18 @@ export default function LocalTimeDisplay(props: {
 
 	const dayLength = new Date(msSunset - msSunrise).getUTCHours();
 	return (
-		<div className='time w-full'>
-			<h3 className='text-2xl'>Time</h3>
-			<p>Current: {time}</p>
-			<p>Sunrise: {sunrise}</p>
-			<p>Sunset: {sunset}</p>
-			<p>Day Length: {dayLength} Hours</p>
+		<div className='time w-full border-gray-200 border-2 rounded-md p-3'>
+			<h3 className='text-2xl border-b-2 border-gray-200'>Time</h3>
+			<div className='flex gap-5 justify-center align-middle items-center'>
+				<div>
+					<p>Current: {time}</p>
+					<p>Sunlight: {dayLength} Hrs</p>
+				</div>
+				<div>
+					<p>Sunrise: {sunrise}</p>
+					<p>Sunset: {sunset}</p>
+				</div>
+			</div>
 		</div>
 	);
 }
