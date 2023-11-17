@@ -17,17 +17,29 @@ export default function WeatherDisplay(props: {
 			</div>
 		);
 	}
+	const clamp = (num: number, min: number, max: number) =>
+		Math.min(Math.max(num, min), max);
 
-	const date = new Date();
-	const msTime = date.getTime();
+	// get times in milliseconds
+	const msTime = Date.now();
 	const sunrise = new Date(parseInt(weather.sys.sunrise) * 1000).getTime();
 	const sunset = new Date(parseInt(weather.sys.sunset) * 1000).getTime();
 
-	const variant = 1;
+	// get the difference in hours (rounded down) and take the minimum one
+	const sunriseDiff = Math.floor(Math.abs(sunrise - msTime) / 3600000);
+	const sunsetDiff = Math.floor(Math.abs(sunset - msTime) / 3600000);
+	const isDay = msTime > sunrise && msTime < sunset;
+	// if it's night, multiply the minimum of diff between sunrise/set by -1,
+	// so that the base variant is subtracted from
+	const minDifference = Math.min(sunriseDiff, sunsetDiff) * (isDay ? 1 : -1);
+	// 6 is the variant that looks like sunrise/sunset most to me, imo
+	// so that's the baseline and we will add or subtract
+	const variant = 6 + minDifference;
+	const clamped = clamp(variant, 1, 11);
 
 	return (
 		<div
-			className={`sky-gradient-${variant} m-5 p-5 border-gray-300 border-2 rounded-md`}>
+			className={`sky-gradient-${clamped} m-5 p-5 border-gray-300 border-2 rounded-md text-white`}>
 			<OverviewDisplay weather={weather} />
 			<div className='mt-5 other flex gap-3'>
 				<WindDisplay weather={weather} />
