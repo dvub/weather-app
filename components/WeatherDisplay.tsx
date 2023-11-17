@@ -19,17 +19,15 @@ export default function WeatherDisplay(props: {
 	}
 
 	const date = new Date();
-	const msTime = date.getTime() + date.getTimezoneOffset() * 60000;
-	const sunrise = parseInt(weather.sys.sunrise) * 1000;
-	const sunset = parseInt(weather.sys.sunset) * 1000;
+	const msTime = date.getTime();
+	const sunrise = new Date(parseInt(weather.sys.sunrise) * 1000).getTime();
+	const sunset = new Date(parseInt(weather.sys.sunset) * 1000).getTime();
+
+	const variant = 1;
 
 	return (
-		<div className='m-5 p-5 border-gray-300 border-2 rounded-md'>
-			{msTime < sunset && msTime > sunrise ? 'day' : 'night'}
-			<br />
-			{msTime}
-			<br />
-			{sunset}
+		<div
+			className={`sky-gradient-${variant} m-5 p-5 border-gray-300 border-2 rounded-md`}>
 			<OverviewDisplay weather={weather} />
 			<div className='mt-5 other flex gap-3'>
 				<WindDisplay weather={weather} />
