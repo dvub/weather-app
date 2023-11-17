@@ -34,7 +34,7 @@ export default function LocalTimeDisplay(props: {
 	return (
 		<div className='time w-full border-gray-200 border-2 rounded-md p-3'>
 			<h3 className='text-2xl border-b-2 border-gray-200'>Time</h3>
-			<div className='flex gap-5 justify-center align-middle items-center'>
+			<div className='flex gap-5 align-middle items-center'>
 				<div>
 					<p>Current: {time}</p>
 					<p>Sunlight: {dayLength} Hrs</p>
