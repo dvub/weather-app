@@ -15,3 +15,20 @@
 .sky-gradient-10 { background: linear-gradient(to bottom, #9be2fe 0%,#67d1fb 100%); }
 .sky-gradient-11 { background: linear-gradient(to bottom, #90dffe 0%,#38a3d1 100%); }
 
+.h3 {
+    font-family: var(--font-jetbrains-mono), monospace;
+}
+
+.panel {
+    background-color: rgb(229, 231, 235, 0.1); 
+    border-radius: 0.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    backdrop-filter: blur(1rem);
+
+}
+.panel h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    
+}
