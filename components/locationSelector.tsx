@@ -42,8 +42,12 @@ export default function LocationSelector(props: {
 			.then((response) => {
 				const options = response.data.map(
 					(location: GeocodeAPIResponse) => {
+						const name = location.name;
+						const secondaryName = location.state
+							? location.state
+							: location.country;
 						return {
-							label: `${location.name}, ${location.state}`,
+							label: `${location.name}, ${secondaryName}`,
 							value: location,
 						};
 					}
