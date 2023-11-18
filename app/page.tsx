@@ -1,5 +1,6 @@
 'use client';
 import LocationSelector from '@/components/locationSelector';
+import WeatherBackground from '@/components/WeatherBackground';
 import WeatherDisplay from '@/components/WeatherDisplay';
 import { WeatherAPIResponse } from '@/types/';
 import axios from 'axios';
@@ -40,6 +41,7 @@ export default function Home() {
 
 	return (
 		<main>
+			<WeatherBackground weather={weather!} />
 			<LocationSelector setCoordinates={setCoordinates} />
 			<WeatherDisplay weather={weather} />
 			<p>TODO: metric toggle</p>

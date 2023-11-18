@@ -4,6 +4,7 @@ import LocalTimeDisplay from './LocalTimeDisplay';
 import WindDisplay from './WindDisplay';
 import MiscDisplay from './MiscDisplay';
 import OverviewDisplay from './OverviewDisplay';
+import WeatherBackground from './WeatherBackground';
 
 export default function WeatherDisplay(props: {
 	weather: WeatherAPIResponse | undefined;
