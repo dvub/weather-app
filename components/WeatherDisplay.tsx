@@ -40,7 +40,9 @@ export default function WeatherDisplay(props: {
 
 	return (
 		<div
-			className={`sky-gradient-${clamped} m-5 p-5 rounded-md text-white`}>
+			className={`sky-gradient-${clamped} m-5 p-5 rounded-md text-white`}
+		>
+			<WeatherBackground weather={weather!} />
 			<OverviewDisplay weather={weather} />
 			<div className='mt-5 other flex gap-3'>
 				<WindDisplay weather={weather} />

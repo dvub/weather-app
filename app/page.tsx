@@ -41,7 +41,6 @@ export default function Home() {
 
 	return (
 		<main>
-			<WeatherBackground weather={weather!} />
 			<LocationSelector setCoordinates={setCoordinates} />
 			<WeatherDisplay weather={weather} />
 			<p>TODO: metric toggle</p>
