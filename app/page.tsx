@@ -1,6 +1,6 @@
 'use client';
 import LocalTimeDisplay from '@/components/LocalTimeDisplay';
-import LocationSelector from '@/components/locationSelector';
+import LocationSelector from '@/components/LocationSelector';
 import MiscDisplay from '@/components/MiscDisplay';
 import OverviewDisplay from '@/components/OverviewDisplay';
 import WindDisplay from '@/components/WindDisplay';
@@ -43,9 +43,9 @@ export default function Home() {
 	// if we can't get a location or whatever
 	if (weather === undefined) {
 		return (
-			<div>
+			<div className='w-full'>
 				<LocationSelector setCoordinates={setCoordinates} />
-				<p>No weather found :\</p>
+				<p className='text-white text-center'>No weather found...</p>
 			</div>
 		);
 	}
@@ -70,13 +70,13 @@ export default function Home() {
 	const clamped = clamp(variant, 1, 11);
 
 	return (
-		<main className='bg-gray-900 h-screen overflow-hidden'>
+		<main className='bg-gray-900 w-screen h-screen overflow-hidden flex'>
 			<div
-				className={`sky-gradient-${clamped} m-5 p-5 rounded-md text-white`}
+				className={`sky-gradient-${clamped} m-5 p-5 rounded-md text-white w-full`}
 			>
 				<LocationSelector setCoordinates={setCoordinates} />
 				<OverviewDisplay weather={weather!} />
-				<div className='mt-5 other flex gap-3'>
+				<div className='mt-5 other flex gap-3 flex-wrap flex-row'>
 					<WindDisplay weather={weather!} />
 					<LocalTimeDisplay weather={weather!} />
 					<MiscDisplay weather={weather!} />

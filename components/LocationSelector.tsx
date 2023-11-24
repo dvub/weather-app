@@ -74,13 +74,30 @@ export default function LocationSelector(props: {
 	return (
 		<div className='wrapper flex justify-center m-5'>
 			<Select
-				className='w-[50%] text-center'
+				className='w-[50%] text-center text-white'
+				styles={{
+					control: (baseStyles, state) => ({
+						...baseStyles,
+						backgroundColor: 'transparent',
+					}),
+					menu: (baseStyles, state) => ({
+						...baseStyles,
+						backgroundColor: 'transparent',
+						color: 'white',
+					}),
+					input: (baseStyles, state) => ({
+						...baseStyles,
+						backgroundColor: 'transparent',
+						color: 'black',
+					}),
+				}}
 				isSearchable={true}
 				options={location.options}
 				inputValue={searchRef.current}
 				onInputChange={onSearchChange}
 				placeholder={'Type a location to search...'}
-				onChange={onLocationChange}></Select>
+				onChange={onLocationChange}
+			></Select>
 		</div>
 	);
 }
